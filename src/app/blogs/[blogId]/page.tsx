@@ -1,4 +1,15 @@
 import BlogDetailsCard from "@/components/ui/BlogDetailsCard";
+import { Blog } from "@/types";
+
+export const generateStaticParams = async () => {
+  const blogs = await fetch("http://localhost:5000/blogs").then(
+    async (res) => await res.json()
+  );
+
+  return blogs.slice(0, 3).map((blog: Blog) => ({
+    blogId: blog.id,
+  }));
+};
 
 const BlogDetailsPage = async ({
   params,
